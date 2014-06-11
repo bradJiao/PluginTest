@@ -1,0 +1,17 @@
+﻿<Properties>
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Source/iBeacon/iBeaconReceiverExample.cs">
+    <Files>
+      <File FileName="Assets/Source/LineRenderCircle.cs" Line="35" Column="4" />
+      <File FileName="Assets/Source/PCircle.cs" Line="28" Column="35" />
+      <File FileName="Assets/Source/iBeacon/iBeaconBS.cs" Line="44" Column="21" />
+      <File FileName="Assets/Source/iBeacon/iBeaconReceiverExample.cs" Line="71" Column="10" />
+      <File FileName="Assets/Source/iBeacon/iBeaconReceiver.cs" Line="186" Column="1" />
+      <File FileName="Assets/Source/iBeacon/Test.cs" Line="33" Column="1" />
+    </Files>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+</Properties>
