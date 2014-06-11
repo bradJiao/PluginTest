@@ -7,13 +7,16 @@ Library/CurrentLayout.dwlt
 
 Library/expandedItems
 
-iBeaconPluginTest.sln
-
-iBeaconPluginTest-csharp.sln
-
-plugin6.unitypackage
-
-plugin7.unitypackage
-
 *.unitypackage
-plugintest/*
+
+iBeaconUnity/*
+
+Temp/*
+
+Library/assetDatabase3
+
+Library/ScriptAssemblies/*
+
+*.dll
+
+Library/EditorUserBuildSettings.asset
