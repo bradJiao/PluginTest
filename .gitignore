@@ -20,3 +20,5 @@ Library/ScriptAssemblies/*
 *.dll
 
 Library/EditorUserBuildSettings.asset
+
+Library/assetDatabase3

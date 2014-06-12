@@ -150,10 +150,10 @@ didStartMonitoringForRegion:(CLRegion *)region {
                 inRegion:(CLBeaconRegion *)region
 {
     
-    NSLog(@"-------\n%lu beacons found\n",(unsigned long)beacons.count);
-    for (int i = 0; i<beacons.count; i++) {
-        NSLog(@"\t\t%@\n",beacons[i]);
-    }
+//    NSLog(@"-------\n%lu beacons found\n",(unsigned long)beacons.count);
+//    for (int i = 0; i<beacons.count; i++) {
+//        NSLog(@"\t\t%@\n",beacons[i]);
+//    }
     
     //    self.rangedRegions[region] = beacons;
     //    [self.beacons removeAllObjects];
@@ -191,7 +191,7 @@ didStartMonitoringForRegion:(CLRegion *)region {
         
     }
     //if (_should_log_debug)
-        NSLog(@"IOS: Sending %@",data);
+    //    NSLog(@"IOS: Sending %@",data);
     UnitySendMessage("IBeaconReceiver","RangeBeacons",[[NSString stringWithString:data] cStringUsingEncoding:NSUTF8StringEncoding]);
 }
 
