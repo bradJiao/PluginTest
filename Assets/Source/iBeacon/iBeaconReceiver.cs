@@ -6,9 +6,9 @@ using System.Runtime.InteropServices;
 public enum BeaconRange
 {
 		UNKNOWN,
-		FAR,
+		IMMEDIATE,
 		NEAR,
-		IMMEDIATE
+		FAR
 }
 
 public struct Beacon
@@ -46,9 +46,9 @@ public struct Beacon
 		public List<int> rssiHistory ;//for smooth rssi
 		public int maxSmoothLength; //smooth avg times
 
-	///smooth rssi
+		///smooth rssi
 	
-	public List<double> accHistory ;//for smooth acc
+		public List<double> accHistory ;//for smooth acc
 
 
 		/// <summary>
@@ -73,22 +73,22 @@ public struct Beacon
 				return sum / rssiHistory.Count;
 		}
 
-	public double setNewAccSample (double acc)
-	{
-		if (accHistory == null) {
-			accHistory = new List<double> ();
-		}
-		if (accHistory.Count >= 10) {
-			accHistory.RemoveAt (0);
-		}
-		accHistory.Add (acc);
+		public double setNewAccSample (double acc)
+		{
+				if (accHistory == null) {
+						accHistory = new List<double> ();
+				}
+				if (accHistory.Count >= 10) {
+						accHistory.RemoveAt (0);
+				}
+				accHistory.Add (acc);
 		
-		double sum = 0;
-		foreach (var item in accHistory) {
-			sum += item;
+				double sum = 0;
+				foreach (var item in accHistory) {
+						sum += item;
+				}
+				return sum / accHistory.Count;
 		}
-		return sum / accHistory.Count;
-	}
 	
 }
 
@@ -105,7 +105,7 @@ public class iBeaconReceiver : MonoBehaviour
 		public static event BeaconOutOfRange BeaconOutOfRangeEvent;
 
 		public string uuid;
-		public string region;
+		public string regionName;
 	
 #if UNITY_ANDROID
 	private static AndroidJavaObject plugin;
@@ -122,10 +122,13 @@ public class iBeaconReceiver : MonoBehaviour
 	
 	#if UNITY_IOS	
 	[DllImport ("__Internal")]
-	private static extern bool InitReceiver(string uuid, string regionIdentifier, bool shouldLog);
+	private static extern bool initReceiver();
 
 	[DllImport ("__Internal")]
-	private static extern void StopIOSScan();
+	private static extern bool startReceiveBeacon(string uuid,  bool simulateRegionEnter);
+
+	[DllImport ("__Internal")]
+	private static extern void stopReceiveAll();
 	#endif
 		private List<Beacon> m_beacons;
 	
@@ -138,7 +141,7 @@ public class iBeaconReceiver : MonoBehaviour
 		{
 				#if !UNITY_EDITOR
 				#if UNITY_IOS
-		is_device_init_ok = InitReceiver(m_instance.uuid,m_instance.region,true);
+		is_device_init_ok = initReceiver();
 		return is_device_init_ok;
 				#elif UNITY_ANDROID
 		GetPlugin().Call("Init",true);
@@ -154,7 +157,7 @@ public class iBeaconReceiver : MonoBehaviour
 		{
 #if !UNITY_EDITOR
 #if UNITY_IOS
-		Stop();
+		stopReceiveAll();
 #elif UNITY_ANDROID
 		GetPlugin().Call("Stop");
 #endif
@@ -165,7 +168,7 @@ public class iBeaconReceiver : MonoBehaviour
 		{
 #if !UNITY_EDITOR
 #if UNITY_IOS
-		is_device_init_ok = InitReceiver(m_instance.uuid,m_instance.region,true);
+		is_device_init_ok = startReceiveBeacon(m_instance.uuid,true);
 #elif UNITY_ANDROID
 		GetPlugin().Call("Scan");
 #endif
@@ -209,7 +212,7 @@ public class iBeaconReceiver : MonoBehaviour
 										}
 								}
 								bTmp.strength = bTmp.setNewRSSISample (bTmp.strength);
-								bTmp.accuracy = bTmp.setNewAccSample(bTmp.accuracy);
+								bTmp.accuracy = bTmp.setNewAccSample (bTmp.accuracy);
 
 								if (removeme) { // Beacon is already in list, remove it for now and add it again later
 								

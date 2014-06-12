@@ -15,6 +15,7 @@ public class iBeaconReceiverExample : MonoBehaviour
 						iBeaconReceiver.BeaconRangeChangedEvent += OnBeaconRangeChanged;
 						iBeaconReceiver.BeaconArrivedEvent += OnBeaconArrived;
 						iBeaconReceiver.BeaconOutOfRangeEvent += OnBeaconOutOfRange;
+						iBeaconReceiver.Scan();
 						Debug.Log ("Listening for beacons");
 				} else {
 						Debug.Log ("init device fail");

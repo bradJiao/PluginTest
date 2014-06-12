@@ -20,3 +20,21 @@ Library/ScriptAssemblies/*
 *.dll
 
 Library/EditorUserBuildSettings.asset
+
+*.csproj
+
+Assembly-CSharp-vs.csproj
+
+Assembly-CSharp.csproj
+
+Assembly-UnityScript-vs.unityproj
+
+Assembly-UnityScript.unityproj
+
+Library/assetDatabase3
+
+Library/EditorUserBuildSettings.asset
+
+Library/metadata/40/40ff212c9cb4f4e559f1c187a5694ca5
+
+Library/metadata/ff/fffc5ab04aea33f4ca259abb3fa52d6d

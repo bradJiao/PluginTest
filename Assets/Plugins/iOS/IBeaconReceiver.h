@@ -1,9 +1,8 @@
 //
-//  IBeaconReceiver.h
-//  ble_plugin
+//  IBeaconReceiver.m
 //
-//  Created by Michael Hoffstaedter on 10.02.14.
-//  Copyright (c) 2014 Michael Hoffstaedter. All rights reserved.
+//  Created by Brad Jiao on 13.06.14.
+//  Copyright (c) 2014 Brad Jiao. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
