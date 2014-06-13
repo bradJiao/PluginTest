@@ -107,7 +107,7 @@ public class iBeaconReceiverExample : MonoBehaviour
 						if (show) {
 								target.transform.localScale = new Vector3 (0.5f, 0.5f, 0.5f);
 						} else {
-								target.transform.localScale = new Vector3 (0.0f, 0.5f, 0.5f);
+								target.transform.localScale = new Vector3 (0.0f, 0.0f, 0.0f);
 						}
 
 				}
