@@ -20,6 +20,9 @@ public struct Beacon
 		public BeaconRange range;
 		public int strength;
 		public double accuracy;
+
+	public GameObject BSObject;
+	public iBeaconBS bsScript;
 	
 		public Beacon (string _uuid, int _major, int _minor, int _range, int _strength, double _accuracy)
 		{
@@ -34,6 +37,8 @@ public struct Beacon
 				maxSmoothLength = 10;
 				rssiHistory = null;
 				accHistory = null;
+		BSObject = null;
+		bsScript = null;
 		}
 	
 		public override string ToString ()
@@ -41,6 +46,10 @@ public struct Beacon
 				return "UUID: " + this.UUID + "\nMajor: " + this.major + "\nMinor: " + this.minor + "\nRange: " + this.range.ToString ();
 		}
 
+		public string IDString ()
+		{
+			return "UUID: " + this.UUID + "-Major: " + this.major + "-Minor: " + this.minor ;
+		}
 		///smooth rssi
 	
 		public List<int> rssiHistory ;//for smooth rssi

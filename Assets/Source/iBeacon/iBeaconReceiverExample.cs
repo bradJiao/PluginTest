@@ -42,7 +42,81 @@ public class iBeaconReceiverExample : MonoBehaviour
 		private void OnBeaconRangeChanged (List<Beacon> beacons)
 		{
 				mybeacons = beacons;
+
+				connectToUnityEntity ();
+
+				positioning ();
+
 		}
+
+		private void connectToUnityEntity ()
+		{
+				for (int i =0; i<mybeacons.Count; i++) {
+						var b = mybeacons [i];
+						string bs_tag = "bs-" + b.major + "-" + b.minor;
+						try {
+								b.BSObject = GameObject.FindGameObjectWithTag (bs_tag);
+
+								b.bsScript = b.BSObject.GetComponent<iBeaconBS> ();
+								mybeacons [i] = b;
+
+						} catch (System.Exception ex) {
+				
+						}
+			
+				}
+		}
+
+		private Vector3 positioning ()
+		{
+				Positioning.Node targetNode = new Positioning.Node (@"target");
+				foreach (var item in mybeacons) {
+						if (item.BSObject == null) {
+								continue;
+						}
+						Positioning.AnchorNode beaconNode = 
+				new Positioning.AnchorNode (item.IDString (),
+				                           item.BSObject.transform.position.x,
+				                           item.BSObject.transform.position.z,
+				                           item.strength,
+				                           (double)item.range);
+						targetNode.Anchors.Add (beaconNode);
+
+				}
+				Positioning.Point point = Positioning.ExtendedTrilateration.CalculatePosition (targetNode, null, null, false);
+
+				if (point != null) {
+						var location = new Vector3 ((float)point.x, 0f, (float)point.y);
+					
+						Debug.Log ("target position :(" + point.x + "," + point.y + ")");
+						showTargetAt (location, true);
+						return location;
+				} else {
+						var location = new Vector3 (0f, 0f, 0f);
+						showTargetAt (location, false);
+						return location;
+				}
+
+		}
+
+		private void showTargetAt (Vector3 location, bool show)
+		{
+				var target = GameObject.FindGameObjectWithTag ("target");
+				if (target != null) {
+						target.transform.position = location;
+						if (show) {
+								target.transform.localScale = new Vector3 (0.5f, 0.5f, 0.5f);
+						} else {
+								target.transform.localScale = new Vector3 (0.0f, 0.5f, 0.5f);
+						}
+
+				}
+		}
+
+		private void hideTarget ()
+		{
+		}
+
 
 		//int count = 1000;
 
@@ -66,18 +140,11 @@ public class iBeaconReceiverExample : MonoBehaviour
 
 				foreach (var b in mybeacons) {
 						string bs_tag = "bs-" + b.major + "-" + b.minor;
-						try {
-								GameObject bs_obj = GameObject.FindGameObjectWithTag (bs_tag);
-								if (null != bs_obj) {
-										iBeaconBS bs_script = bs_obj.GetComponent<iBeaconBS> ();
-										bs_script.setBeacon (b);
-								} else {
-										//Debug.Log ("No this BeaconBS:" + b.major + "-" + b.minor);
-								}
-				
-						} catch (System.Exception ex) {
-				
+						if (b.bsScript != null) {
+								b.bsScript.setBeacon (b);
 						}
+										
+								
 						
 				}
 		}

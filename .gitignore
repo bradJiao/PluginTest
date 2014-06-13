@@ -17,8 +17,38 @@ Library/assetDatabase3
 
 Library/ScriptAssemblies/*
 
+Library/metadata/*
+
 *.dll
 
 Library/EditorUserBuildSettings.asset
 
 Library/assetDatabase3
+
+*.meta
+
+PluginTest.userprefs
+
+Library/AssetServerCacheV3
+
+Library/guidmapper
+
+*.unityproj
+
+Assembly-UnityScript.unityproj
+
+Assembly-UnityScript-vs.unityproj
+
+*.csproj
+
+Assembly-CSharp-vs.csproj
+
+Assembly-CSharp.csproj
+
+Assets/BeaconBSTest.unity
+
+Library/metadata/40/40ff212c9cb4f4e559f1c187a5694ca5
+
+Library/metadata/c7/c7f3e12242cbf41d5a69715e43f213a6
+
+Library/metadata/ff/fffc5ab04aea33f4ca259abb3fa52d6d
