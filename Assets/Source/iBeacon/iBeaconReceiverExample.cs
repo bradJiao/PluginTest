@@ -67,7 +67,7 @@ public class iBeaconReceiverExample : MonoBehaviour
 				}
 		}
 
-		private Vector3 positioning ()
+		private void positioning ()
 		{
 				Positioning.Node targetNode = new Positioning.Node (@"target");
 				foreach (var item in mybeacons) {
@@ -83,18 +83,19 @@ public class iBeaconReceiverExample : MonoBehaviour
 						targetNode.Anchors.Add (beaconNode);
 
 				}
-				Positioning.Point point = Positioning.ExtendedTrilateration.CalculatePosition (targetNode, null, null, false);
+				//Positioning.Point point = Positioning.ExtendedTrilateration.CalculatePosition (targetNode, null, null, false);
+				Positioning.Point point = Positioning.MinMaxExtended.CalculatePosition (targetNode, null, null, false);
 
 				if (point != null) {
 						var location = new Vector3 ((float)point.x, 0f, (float)point.y);
 					
 						Debug.Log ("target position :(" + point.x + "," + point.y + ")");
 						showTargetAt (location, true);
-						return location;
+						//return location;
 				} else {
 						var location = new Vector3 (0f, 0f, 0f);
 						showTargetAt (location, false);
-						return location;
+						//return location;
 				}
 
 		}
