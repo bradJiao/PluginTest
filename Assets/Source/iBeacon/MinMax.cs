@@ -55,13 +55,13 @@
         /// <param name="RangingMethod">The ranging method</param>
         /// <param name="multihop">use multihop or not</param>
         /// <returns>The position of the blind node</returns>
-//        public static Point CalculatePosition(Node BlindNode, Node.FilterMethod filterMethod, Node.RangingMethod rangingMethod, bool multiHop)
-//        {
-//
-//            Point center = new Point();
-//            List<AnchorNode> Anchors = new List<AnchorNode>();
+        public static Point CalculatePosition(Node BlindNode, Node.FilterMethod filterMethod, Node.RangingMethod rangingMethod, bool multiHop)
+        {
+
+            Point center = new Point();
+            List<AnchorNode> Anchors = new List<AnchorNode>();
 //            List<AnchorNode> AllAnchors = new List<AnchorNode>();
-//            int count = 0;
+            int count = 0;
 //
 //            foreach (AnchorNode AN in BlindNode.Anchors)
 //            {
@@ -74,32 +74,32 @@
 //                VAN.range = rangingMethod(VAN.fRSS);
 //            }
 //
-//            for (int i = 0; i < BlindNode.Anchors.Count; i++)
-//            {
-//                count = 0;
-//                BlindNode.Anchors[i].fRSS = filterMethod(BlindNode.Anchors[i].RSS);
-//                for (int j = 0; j < BlindNode.Anchors.Count; j++)
-//                {
-//                    BlindNode.Anchors[j].fRSS = filterMethod(BlindNode.Anchors[j].RSS);
-//                    if (BelongsToAllBoxes(BlindNode.Anchors[i].posx, BlindNode.Anchors[i].posy, BlindNode.Anchors[i].range, BlindNode.Anchors[j].posx, BlindNode.Anchors[j].posy, BlindNode.Anchors[j].range))
-//                        count++;
-//                }
-//                if (count >= 3)
-//                    Anchors.Add(BlindNode.Anchors[i]);
-//            }
+            for (int i = 0; i < BlindNode.Anchors.Count; i++)
+            {
+                count = 0;
+                //BlindNode.Anchors[i].fRSS = filterMethod(BlindNode.Anchors[i].RSS);
+                for (int j = 0; j < BlindNode.Anchors.Count; j++)
+                {
+                    //BlindNode.Anchors[j].fRSS = filterMethod(BlindNode.Anchors[j].RSS);
+                    if (BelongsToAllBoxes(BlindNode.Anchors[i].posx, BlindNode.Anchors[i].posy, BlindNode.Anchors[i].range, BlindNode.Anchors[j].posx, BlindNode.Anchors[j].posy, BlindNode.Anchors[j].range))
+                        count++;
+                }
+                if (count >= 3)
+                    Anchors.Add(BlindNode.Anchors[i]);
+            }
 //
 //            if (!multiHop)
-//            {
-//                if (Anchors.Count >= 3)
-//                {
-//                    center = MinMaxCalc(Anchors, filterMethod);
-//                }
-//                else
-//                {
-//                    center = null;
-//                }
-//
-//            }
+            {
+                if (Anchors.Count >= 3)
+                {
+                    center = MinMaxCalc(Anchors, filterMethod);
+                }
+                else
+                {
+                    center = null;
+                }
+
+            }
 //            else
 //            {
 //
@@ -137,9 +137,9 @@
 //                    center = null;
 //                }
 //            }
-//
-//            return center;
-//        }
+
+            return center;
+        }
         /// <summary>
         /// Calculates the intersection points between two circles
         /// </summary>

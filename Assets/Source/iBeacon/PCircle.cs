@@ -5,8 +5,8 @@ public class PCircle : MonoBehaviour {
 	
 	
 	
-	[Range(100,1000)]
-	public int resolution = 100;
+	[Range(10,100)]
+	public int resolution = 10;
 	public float radius = 1;
 	private int currentResolution;
 	private float currentRadius ;
