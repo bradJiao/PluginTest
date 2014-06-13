@@ -139,7 +139,7 @@ public class iBeaconReceiverExample : MonoBehaviour
 				//for test end
 
 				foreach (var b in mybeacons) {
-						string bs_tag = "bs-" + b.major + "-" + b.minor;
+						//string bs_tag = "bs-" + b.major + "-" + b.minor;
 						if (b.bsScript != null) {
 								b.bsScript.setBeacon (b);
 						}
