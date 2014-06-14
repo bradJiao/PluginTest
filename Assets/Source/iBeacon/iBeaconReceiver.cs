@@ -145,6 +145,8 @@ public class iBeaconReceiver : MonoBehaviour
 	
 		public static bool Init ()
 		{
+		is_device_init_ok = true;
+		return true;//for test
 				#if !UNITY_EDITOR
 				#if UNITY_IOS
 		is_device_init_ok = InitReceiver(m_instance.uuid,m_instance.region,true);

@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.InteropServices;
 
 public class iBeaconReceiverExample : MonoBehaviour
 {
@@ -41,12 +42,12 @@ public class iBeaconReceiverExample : MonoBehaviour
 
 		private void OnBeaconRangeChanged (List<Beacon> beacons)
 		{
+		
 				mybeacons = beacons;
-
+		
 				connectToUnityEntity ();
-
+		
 				positioning ();
-
 		}
 
 		private void connectToUnityEntity ()
@@ -56,9 +57,10 @@ public class iBeaconReceiverExample : MonoBehaviour
 						string bs_tag = "bs-" + b.major + "-" + b.minor;
 						try {
 								b.BSObject = GameObject.FindGameObjectWithTag (bs_tag);
-
-								b.bsScript = b.BSObject.GetComponent<iBeaconBS> ();
-								mybeacons [i] = b;
+								if (b.BSObject != null) {
+									b.bsScript = b.BSObject.GetComponent<iBeaconBS> ();
+									mybeacons [i] = b;
+								}
 
 						} catch (System.Exception ex) {
 				
@@ -66,40 +68,78 @@ public class iBeaconReceiverExample : MonoBehaviour
 			
 				}
 		}
-
+	#if UNITY_IOS	
+	[DllImport ("__Internal")]
+	private static extern bool calcPos(double[] data, int archorNum, out double outx,out double outy);
+	#endif
 		private void positioning ()
 		{
-				Positioning.Node targetNode = new Positioning.Node (@"target");
+
+				Positioning.Point point = null;
+
+
+				int archornum = 0;
+				double[] data = new double[mybeacons.Count * 3];
+				double outx = 0;
+				double outy = 0;
+
+				int i = 0;
+		
 				foreach (var item in mybeacons) {
 						if (item.BSObject == null) {
 								continue;
 						}
-						Positioning.AnchorNode beaconNode = 
-				new Positioning.AnchorNode (item.IDString (),
-				                           item.BSObject.transform.position.x,
-				                           item.BSObject.transform.position.z,
-				                           item.strength,
-				                           (double)item.range);
-						targetNode.Anchors.Add (beaconNode);
+						data [i * 3] = item.BSObject.transform.position.x;
+						data [i * 3 + 1] = item.BSObject.transform.position.z;
+						data [i * 3 + 2] = (double)item.range;
+						i++;
+				}
+				archornum = i;
+		
+				if (archornum >= 3) {
+						bool ret = calcPos (data, archornum, out outx, out outy);
+						if (ret) {
+								point = new Positioning.Point ();
+								point.x = outx;
+								point.y = outy;
+						}
 
 				}
+		
+		
+//		Positioning.Node targetNode = new Positioning.Node (@"target");
+//				foreach (var item in mybeacons) {
+//						if (item.BSObject == null) {
+//								continue;
+//						}
+//						Positioning.AnchorNode beaconNode = 
+//				new Positioning.AnchorNode (item.IDString (),
+//				                           item.BSObject.transform.position.x,
+//				                           item.BSObject.transform.position.z,
+//				                           item.strength,
+//				                           (double)item.range);
+//						targetNode.Anchors.Add (beaconNode);
+//
+//				}
 				//Positioning.Point point = Positioning.ExtendedTrilateration.CalculatePosition (targetNode, null, null, false);
 				//Positioning.Point point = Positioning.MinMaxExtended.CalculatePosition (targetNode, null, null, false);
-//				Positioning.Point point = Positioning.MinMax.CalculatePosition (targetNode, null, null, false);
+				//Positioning.Point point = Positioning.MinMax.CalculatePosition (targetNode, null, null, false);
 //				//Positioning.Point point = Positioning.ClusterTrilateration.CalculatePosition (targetNode, null, null, false);
+
+
 //
 //
-//				if (point != null) {
-//						var location = new Vector3 ((float)point.x, 0f, (float)point.y);
-//					
-//						//Debug.Log ("target position :(" + point.x + "," + point.y + ")");
-//						showTargetAt (location, true);
-//						//return location;
-//				} else {
-//						var location = new Vector3 (0f, 0f, 0f);
-//						showTargetAt (location, false);
-//						//return location;
-//				}
+				if (point != null) {
+						var location = new Vector3 ((float)point.x, 0f, (float)point.y);
+					
+						//Debug.Log ("target position :(" + point.x + "," + point.y + ")");
+						showTargetAt (location, true);
+						//return location;
+				} else {
+						var location = new Vector3 (0f, 0f, 0f);
+						showTargetAt (location, false);
+						//return location;
+				}
 
 		}
 
