@@ -85,21 +85,21 @@ public class iBeaconReceiverExample : MonoBehaviour
 				}
 				//Positioning.Point point = Positioning.ExtendedTrilateration.CalculatePosition (targetNode, null, null, false);
 				//Positioning.Point point = Positioning.MinMaxExtended.CalculatePosition (targetNode, null, null, false);
-				Positioning.Point point = Positioning.MinMax.CalculatePosition (targetNode, null, null, false);
-				//Positioning.Point point = Positioning.ClusterTrilateration.CalculatePosition (targetNode, null, null, false);
-
-
-				if (point != null) {
-						var location = new Vector3 ((float)point.x, 0f, (float)point.y);
-					
-						//Debug.Log ("target position :(" + point.x + "," + point.y + ")");
-						showTargetAt (location, true);
-						//return location;
-				} else {
-						var location = new Vector3 (0f, 0f, 0f);
-						showTargetAt (location, false);
-						//return location;
-				}
+//				Positioning.Point point = Positioning.MinMax.CalculatePosition (targetNode, null, null, false);
+//				//Positioning.Point point = Positioning.ClusterTrilateration.CalculatePosition (targetNode, null, null, false);
+//
+//
+//				if (point != null) {
+//						var location = new Vector3 ((float)point.x, 0f, (float)point.y);
+//					
+//						//Debug.Log ("target position :(" + point.x + "," + point.y + ")");
+//						showTargetAt (location, true);
+//						//return location;
+//				} else {
+//						var location = new Vector3 (0f, 0f, 0f);
+//						showTargetAt (location, false);
+//						//return location;
+//				}
 
 		}
 

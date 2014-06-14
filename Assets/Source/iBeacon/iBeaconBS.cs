@@ -45,7 +45,7 @@ public class iBeaconBS : MonoBehaviour
 						
 						PCircle circle_scrpt = this.GetComponentInChildren<PCircle> ();
 						if ( circle_scrpt  != null && this.m_beacon.accuracy > 0) {
-								//circle_scrpt .is_show = true;
+								circle_scrpt .is_show = true;
 								circle_scrpt .radius = (float)this.m_beacon.accuracy;
 						}
 //			VectrosityCircle[] vcircle_scrpt = this.GetComponentsInChildren<VectrosityCircle>();
