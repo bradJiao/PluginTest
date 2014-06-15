@@ -74,7 +74,8 @@ public class iBeaconReceiverExample : MonoBehaviour
 	#endif
 		private void positioning ()
 		{
-
+//		#if !UNITY_EDITOR
+//		#if UNITY_IOS
 				Positioning.Point point = null;
 
 
@@ -105,7 +106,7 @@ public class iBeaconReceiverExample : MonoBehaviour
 						}
 
 				}
-		
+
 		
 //		Positioning.Node targetNode = new Positioning.Node (@"target");
 //				foreach (var item in mybeacons) {
